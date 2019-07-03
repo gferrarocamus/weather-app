@@ -4,7 +4,7 @@
 
 The data is retrieved from [OpenWeather](https://openweathermap.org/).
 
-See it live [here](https://gferrarocamus.github.io/restaurant-page/).
+See it live [here](https://gferrarocamus.github.io/weather-app/).
 
 ## Contributors
 
@@ -13,5 +13,3 @@ See it live [here](https://gferrarocamus.github.io/restaurant-page/).
 ## License
 
 MIT © 2019 @gferrarocamus
-
-b8d08b4b5bc310505709e7342891ec46
