@@ -1,4 +1,3 @@
-const defaultUnit = 'C';
 const form = document.querySelector('form');
 const input = document.getElementById('search-term');
 const results = document.getElementById('results');
@@ -26,8 +25,8 @@ const clearAll = () => {
 };
 
 const convert = (value, unit) => {
-  if (unit === 'C') return Math.round((value - 32) * 5 / 9);
-  if (unit === 'F') return Math.round((value * 9 / 5) + 32);
+  if (unit === 'C') return Math.round(((value - 32) * 5) / 9);
+  if (unit === 'F') return Math.round((value * 9) / 5 + 32);
   return value;
 };
 
@@ -64,7 +63,7 @@ const addWeatherResults = (response, parent) => {
   icon.alt = `${response.weather[0].description}`;
 
   let str = '';
-  for (let i = 1; i < response.weather.length; i++) {
+  for (let i = 1; i < response.weather.length; i += 1) {
     i === 1 ? (str += 'with ') : (str += ', ');
     str += `${response.weather[i].description}`;
   }

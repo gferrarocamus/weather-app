@@ -19,5 +19,7 @@ module.exports = {
     'prefer-destructuring': 'off',
     'no-alert': 'off',
     'no-restricted-globals': 'off',
+    'no-unused-expressions': 'off',
+    'radix': 'off',
   }
 };
