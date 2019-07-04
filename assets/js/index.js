@@ -1,3 +1,4 @@
+const defaultUnit = 'C';
 const form = document.querySelector('form');
 const input = document.getElementById('search-term');
 const results = document.getElementById('results');
@@ -24,13 +25,35 @@ const clearAll = () => {
   }
 };
 
-const addWeatherResults = (response, unit, parent) => {
+const convert = (value, unit) => {
+  if (unit === 'C') return Math.round((value - 32) * 5 / 9);
+  if (unit === 'F') return Math.round((value * 9 / 5) + 32);
+  return value;
+};
+
+const toggleUnit = (e, unit) => {
+  if ([...e.target.classList].indexOf('active') > -1) return;
+  const currentTemp = document.getElementById('currentTemp');
+  const minMax = document.getElementById('minMax');
+  const current = currentTemp.textContent.split(' ')[0];
+  const min = minMax.textContent.split(' ')[1];
+  const max = minMax.textContent.split(' ')[5];
+  [...document.getElementsByClassName('unit')].forEach((div) => {
+    div.classList.toggle('active');
+  });
+  currentTemp.textContent = `${convert(current, unit)} °${unit}`;
+  minMax.textContent = `Min. ${convert(min, unit)} °${unit} | Max. ${convert(max, unit)} °${unit}`;
+};
+
+const addWeatherResults = (response, parent) => {
   const div = document.createElement('div');
   div.classList.add('card');
   const title = document.createElement('h2');
   const icon = document.createElement('img');
   const temp = document.createElement('big');
+  temp.setAttribute('id', 'currentTemp');
   const minMax = document.createElement('p');
+  minMax.setAttribute('id', 'minMax');
   const description = document.createElement('h3');
   const more = document.createElement('h6');
   const wind = document.createElement('p');
@@ -48,12 +71,10 @@ const addWeatherResults = (response, unit, parent) => {
 
   [
     [title, `${response.name}, ${response.sys.country}`],
-    [temp, `${parseInt(response.main.temp)} °${unit}`],
+    [temp, `${parseInt(response.main.temp)} °C`],
     [
       minMax,
-      `Min. ${parseInt(response.main.temp_min)} °${unit} | Max. ${parseInt(
-        response.main.temp_max,
-      )} °${unit}`,
+      `Min. ${parseInt(response.main.temp_min)} °C | Max. ${parseInt(response.main.temp_max)} °C`,
     ],
     [description, `${response.weather[0].description}`],
     [more, `${str}`],
@@ -71,9 +92,30 @@ const addWeatherResults = (response, unit, parent) => {
   parent.appendChild(div);
 };
 
-const fetchCities = (searchTerm, unit) => {
+const addUnitToggler = (parent) => {
+  const div = document.createElement('div');
+  div.classList.add('toggler');
+  const c = document.createElement('div');
+  c.textContent = '°C';
+  c.value = 'C';
+  c.classList.add('unit');
+  c.classList.add('active');
+  c.addEventListener('click', e => toggleUnit(e, 'C'), false);
+  const f = document.createElement('div');
+  f.value = 'F';
+  f.textContent = '°F';
+  f.classList.add('unit');
+  f.addEventListener('click', e => toggleUnit(e, 'F'), false);
+  // unit === 'C' ? c.classList.add('active') : f.classList.add('active');
+  div.appendChild(c);
+  div.appendChild(f);
+  parent.appendChild(div);
+};
+
+const fetchCities = (searchTerm) => {
+  // const unitCode = unit === 'C' ? 'metric' : 'imperial';
   fetch(
-    `https://api.openweathermap.org/data/2.5/weather?q=${searchTerm}&units=${unit}&appid=b8d08b4b5bc310505709e7342891ec46`,
+    `https://api.openweathermap.org/data/2.5/weather?q=${searchTerm}&units=metric&appid=b8d08b4b5bc310505709e7342891ec46`,
     {
       mode: 'cors',
     },
@@ -87,9 +129,8 @@ const fetchCities = (searchTerm, unit) => {
       } else {
         hide(messages);
         clearAll();
-        console.log(response);
-        addWeatherResults(response, 'C', results);
-        //addUnitToggler();
+        addWeatherResults(response, results);
+        addUnitToggler(results);
         show(results);
       }
     })
@@ -103,7 +144,7 @@ form.addEventListener(
   'submit',
   (e) => {
     e.preventDefault();
-    fetchCities(input.value, 'metric');
+    fetchCities(input.value);
   },
   false,
 );
