@@ -60,14 +60,14 @@ big {
   color: #ffffff;
   border-radius: 8px;
   margin: 10px 0 0 auto;
-  background-color:rgba(78, 77, 74, 0.8);
-  border: 1px solid #EEEEEE;
+  background-color: rgba(78, 77, 74, 0.8);
+  border: 1px solid #eeeeee;
   width: 92px;
   cursor: pointer;
 }
 
 .unit:hover {
-  background-color:rgba(78, 77, 74, 1);
+  background-color: rgba(78, 77, 74, 1);
 }
 
 .unit {
