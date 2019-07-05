@@ -54,7 +54,7 @@ const addWeatherResults = (response, parent) => {
   const minMax = document.createElement('p');
   minMax.setAttribute('id', 'minMax');
   const description = document.createElement('h3');
-  const more = document.createElement('h6');
+  const more = document.createElement('h4');
   const wind = document.createElement('p');
   const pressure = document.createElement('p');
   const humidity = document.createElement('p');
@@ -112,7 +112,6 @@ const addUnitToggler = (parent) => {
 };
 
 const fetchCities = (searchTerm) => {
-  // const unitCode = unit === 'C' ? 'metric' : 'imperial';
   fetch(
     `https://api.openweathermap.org/data/2.5/weather?q=${searchTerm}&units=metric&appid=b8d08b4b5bc310505709e7342891ec46`,
     {
