@@ -48,6 +48,8 @@ const addWeatherResults = (response, parent) => {
   const div = document.createElement('div');
   div.classList.add('card');
   const title = document.createElement('h2');
+  const date = document.createElement('p');
+  date.classList.add('date');
   const icon = document.createElement('img');
   const temp = document.createElement('big');
   temp.setAttribute('id', 'currentTemp');
@@ -70,6 +72,7 @@ const addWeatherResults = (response, parent) => {
 
   [
     [title, `${response.name}, ${response.sys.country}`],
+    [date, `${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()} (${new Date().toString().split(' ')[5]})`],
     [temp, `${parseInt(response.main.temp)} °C`],
     [
       minMax,
@@ -84,7 +87,7 @@ const addWeatherResults = (response, parent) => {
     item[0].textContent = item[1];
   });
 
-  [title, icon, temp, minMax, description, more, wind, pressure, humidity].forEach((item) => {
+  [date, title, icon, temp, minMax, description, more, wind, pressure, humidity].forEach((item) => {
     if (item.tagName === 'IMG' || item.textContent !== '') div.appendChild(item);
   });
 
@@ -105,7 +108,6 @@ const addUnitToggler = (parent) => {
   f.textContent = '°F';
   f.classList.add('unit');
   f.addEventListener('click', e => toggleUnit(e, 'F'), false);
-  // unit === 'C' ? c.classList.add('active') : f.classList.add('active');
   div.appendChild(c);
   div.appendChild(f);
   parent.appendChild(div);
@@ -125,6 +127,7 @@ const fetchCities = (searchTerm) => {
         clearAll();
         show(messages);
       } else {
+        console.log(response);
         hide(messages);
         clearAll();
         addWeatherResults(response, results);
