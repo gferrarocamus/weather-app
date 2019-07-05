@@ -79,11 +79,11 @@ button:hover {
 }
 
 .card {
-  border: #dddddd 1px solid;
+  border: 1px #dddddd solid;
   background-color: #ffffff;
   border-radius: 8px;
   padding: 15px;
-  box-shadow: 5px 5px 7px 0 rgba(78, 77, 74, 0.3);
+  box-shadow: 5px 5px 7px 0 rgba(221, 221, 221, 1);
   position: relative;
 }
 
