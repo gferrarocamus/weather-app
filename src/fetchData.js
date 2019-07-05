@@ -7,16 +7,13 @@ const fetchData = (searchTerm) => {
     .catch(error => alert(`Error: ${error}`));
 };
 
-const processData = (searchTerm) => {
-  fetchData(searchTerm)
-    .then((response) => {
-      if (response.cod === '404') {
-        renderNotFoundMsg();
-      } else {
-        renderResults(response);
-      }
-    })
-    .catch(error => renderErrorMsg(error));
-};
+async function processData(searchTerm) {
+  try {
+    const response = await fetchData(searchTerm);
+    response.cod === '404' ? renderNotFoundMsg() : renderResults(response);
+  } catch (e) {
+    renderErrorMsg(e);
+  }
+}
 
 export { processData };
