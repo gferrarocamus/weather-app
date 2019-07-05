@@ -1,4 +1,6 @@
 import './css/style.css';
+import { convert } from './utils';
+import { processData } from './fetchData';
 
 const form = document.querySelector('form');
 const input = document.getElementById('search-term');
@@ -24,12 +26,6 @@ const clearAll = () => {
   while (results.firstChild) {
     results.removeChild(results.firstChild);
   }
-};
-
-const convert = (value, unit) => {
-  if (unit === 'C') return Math.round(((value - 32) * 5) / 9);
-  if (unit === 'F') return Math.round((value * 9) / 5 + 32);
-  return value;
 };
 
 const toggleUnit = (e, unit) => {
@@ -74,7 +70,12 @@ const addWeatherResults = (response, parent) => {
 
   [
     [title, `${response.name}, ${response.sys.country}`],
-    [date, `${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()} (${new Date().toString().split(' ')[5]})`],
+    [
+      date,
+      `${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()} (${
+        new Date().toString().split(' ')[5]
+      })`,
+    ],
     [temp, `${parseInt(response.main.temp)} °C`],
     [
       minMax,
@@ -115,41 +116,34 @@ const addUnitToggler = (parent) => {
   parent.appendChild(div);
 };
 
-const fetchCities = (searchTerm) => {
-  fetch(
-    `https://api.openweathermap.org/data/2.5/weather?q=${searchTerm}&units=metric&appid=b8d08b4b5bc310505709e7342891ec46`,
-    {
-      mode: 'cors',
-    },
-  )
-    .then(response => response.json())
-    .then((response) => {
-      if (response.cod === '404') {
-        setText(`'${input.value}' was not found. Try again.`, message);
-        clearAll();
-        show(messages);
-      } else {
-        console.log(response);
-        hide(messages);
-        clearAll();
-        addWeatherResults(response, results);
-        addUnitToggler(results);
-        show(results);
-      }
-    })
-    .catch((error) => {
-      setText(`Error: ${error}`, message);
-      show(messages);
-    });
+const renderErrorMsg = (error) => {
+  setText(`Error: ${error}`, message);
+  show(messages);
 };
+
+const renderNotFoundMsg = () => {
+  setText(`'${input.value}' was not found. Try again.`, message);
+  clearAll();
+  show(messages);
+};
+
+const renderResults = (response) => {
+  hide(messages);
+  clearAll();
+  addWeatherResults(response, results);
+  addUnitToggler(results);
+  show(results);
+};
+
+cross.addEventListener('click', () => hide(messages), false);
 
 form.addEventListener(
   'submit',
   (e) => {
     e.preventDefault();
-    fetchCities(input.value);
+    processData(input.value);
   },
   false,
 );
 
-cross.addEventListener('click', () => hide(messages), false);
+export { renderErrorMsg, renderNotFoundMsg, renderResults };
