@@ -1,3 +1,5 @@
+import './css/style.css';
+
 const form = document.querySelector('form');
 const input = document.getElementById('search-term');
 const results = document.getElementById('results');
