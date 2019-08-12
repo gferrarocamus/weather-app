@@ -1,3 +1,13 @@
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
 body {
   margin: 0;
   background-color: #f9f9f9;
@@ -6,11 +16,13 @@ body {
 
 .container {
   text-align: center;
-  max-width: 1200px;
+  width: 1200px;
+  max-width: 100%;
   margin: 0 auto;
   padding: 15px;
   box-sizing: border-box;
-  min-height: 100vh;
+  position: relative;
+  z-index: 105;
 }
 
 header {
@@ -23,6 +35,10 @@ header {
   border: #f6b73c 1px solid;
   padding: 10px;
   position: relative;
+}
+
+#message {
+  color: black;
 }
 
 #cross {
@@ -91,11 +107,11 @@ button:hover {
   filter: drop-shadow(5px 5px 5px rgba(78, 77, 74, 1));
   animation: icon 5s linear infinite;
   position: relative;
-  animation-play-state: paused;
+  animation-play-state: running;
 }
 
-.card img:hover {
-  animation-play-state: running;
+.card:hover img {
+  animation-play-state: paused;
 }
 
 @keyframes icon {
@@ -168,4 +184,114 @@ p {
 
 .unit.active:hover {
   background-color: #c1593f;
+}
+
+#sky {
+  position: relative;
+  min-height: 100vh;
+  background: #c9dbe9;
+  background: linear-gradient(#f9f9f9 0%, #c9dbe9 100%);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cloud-container {
+  position: relative;
+  padding: 150px 0 0;
+  margin-bottom: -100px;
+  z-index: 100;
+  overflow: hidden;
+}
+
+.cloud {
+  width: 200px;
+  height: 60px;
+  background: #ffffff;
+  border-radius: 200px;
+  position: relative;
+}
+
+.cloud:before,
+.cloud:after {
+  content: '';
+  position: absolute;
+  background: #ffffff;
+  width: 100px;
+  height: 80px;
+  position: absolute;
+  top: -15px;
+  left: 10px;
+  border-radius: 100px;
+  transform: rotate(30deg);
+}
+
+.cloud:after {
+  width: 120px;
+  height: 120px;
+  top: -55px;
+  left: auto;
+  right: 15px;
+}
+
+.x1 {
+  animation: moveclouds 25s linear infinite;
+}
+
+.x2 {
+  left: 200px;
+  transform: scale(0.6);
+  opacity: 0.6;
+  animation: moveclouds 15s linear infinite;
+}
+
+.x3 {
+  left: -250px;
+  top: -200px;
+  transform: scale(0.8);
+  opacity: 0.8;
+  animation: moveclouds 20s linear infinite;
+}
+
+.x4 {
+  left: 470px;
+  top: -250px;
+  transform: scale(0.75);
+  opacity: 0.75;
+  animation: moveclouds 18s linear infinite;
+}
+
+.x5 {
+  left: -150px;
+  top: -150px;
+  transform: scale(0.85);
+  opacity: 0.85;
+  animation: moveclouds 21s linear infinite;
+}
+
+@keyframes moveclouds {
+  0% {
+    margin-left: calc(100vw + 450px);
+  }
+  100% {
+    margin-left: calc(-100vw - 450px);
+  }
+}
+
+@media (max-width: 425px) {
+  form {
+    flex-wrap: wrap;
+  }
+
+  input {
+    margin: 0 auto 0.8em;
+    width: 90%;
+  }
+
+  button {
+    display: inline-block;
+    width: 90%;
+    margin: 0 auto;
+  }
 }

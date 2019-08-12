@@ -8,6 +8,7 @@ const results = document.getElementById('results');
 const messages = document.getElementById('messages');
 const message = document.getElementById('message');
 const cross = document.getElementById('cross');
+const clouds = document.querySelector('.cloud-container');
 
 const show = (div) => {
   div.classList.remove('hide');
@@ -117,7 +118,8 @@ const addUnitToggler = (parent) => {
 };
 
 const renderErrorMsg = (error) => {
-  setText(`Error: ${error}`, message);
+  alert(error);
+  setText("That didn't work. Try again.", message);
   show(messages);
 };
 
@@ -132,6 +134,7 @@ const renderResults = (response) => {
   clearAll();
   addWeatherResults(response, results);
   addUnitToggler(results);
+  hide(clouds);
   show(results);
 };
 
