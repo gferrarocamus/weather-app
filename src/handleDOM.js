@@ -3,6 +3,7 @@ import { convert } from './utils';
 import { processData } from './fetchData';
 
 const form = document.querySelector('form');
+const h1 = document.querySelector('h1.main');
 const input = document.getElementById('search-term');
 const results = document.getElementById('results');
 const messages = document.getElementById('messages');
@@ -138,15 +139,22 @@ const renderResults = (response) => {
   show(results);
 };
 
+const toggleCursor = () => {
+  document.body.classList.toggle('busy-cursor');
+};
+
+h1.addEventListener('click', () => location.reload(), false);
+
 cross.addEventListener('click', () => hide(messages), false);
 
 form.addEventListener(
   'submit',
   (e) => {
     e.preventDefault();
+    toggleCursor();
     processData(input.value);
   },
   false,
 );
 
-export { renderErrorMsg, renderNotFoundMsg, renderResults };
+export { renderErrorMsg, renderNotFoundMsg, renderResults, toggleCursor };
