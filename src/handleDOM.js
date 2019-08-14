@@ -157,4 +157,6 @@ form.addEventListener(
   false,
 );
 
-export { renderErrorMsg, renderNotFoundMsg, renderResults, toggleCursor };
+export {
+  renderErrorMsg, renderNotFoundMsg, renderResults, toggleCursor,
+};
