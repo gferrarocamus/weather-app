@@ -14,13 +14,25 @@ It is built with vanilla JavaScript, CSS, and HTML and bundled with Webpack. Sim
 - Autocomplete city name as user types
 - Support search by location
 
+## Install
+
+After cloning the repo, install the necessary packages inside the project directory:
+
+```
+$ npm install
+```
+
+You're ready to start developing. 
+
+Build any changes to the project with `$ npx webpack`, or have all changes built automatically by running `$ npx webpack --watch` in a separate terminal while you develop.
+
 ## Live Version
 
 See it live [here](https://gferrarocamus.github.io/weather-app/).
 
 ## License
 
-MIT © 2020 @gferrarocamus
+MIT © 2020 Giuliana Ferraro
 
 ---
 
