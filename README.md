@@ -1,8 +1,8 @@
 # Weather App
 
-This web app allows you to get current weather details for a city of your interest.
+This web app allows you to get current weather details for a city of your interest. Simply type in a city name to get started.
 
-It is built with vanilla JavaScript, CSS, and HTML and bundled with Webpack. Simply type in a city name to get started.
+It is built with vanilla JavaScript, CSS, and HTML and bundled with Webpack.
 
 ## Features
 
@@ -11,10 +11,12 @@ It is built with vanilla JavaScript, CSS, and HTML and bundled with Webpack. Sim
 
 ## Future Features
 
-- Autocomplete city name as user types
-- Support search by location
+- Add typeahead to suggest city name as user types.
+- Support search by geolocation.
 
 ## Install
+
+To run locally, make sure you have [Node.js](https://nodejs.org/) installed.
 
 After cloning the repo, install the necessary packages inside the project directory:
 
